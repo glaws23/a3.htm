@@ -2,56 +2,18 @@
 <script>
 function validateAndSubmit()
 {
-  var srn_num = document.f1.srn_num.value;
-  var month_num = document.f1.month_num.value;
+  let srn_num = 0;
+  let month_num = 1;
+  let major = [0, 0, 0, 0, 0, 0];
+  let minor = [0, 0, 0, 0, 0, 0];
+  let sub1 = [0, 0, 0, 0, 0, 0];
+  let sub2 = [0, 0, 0, 0, 0, 0];
+  let trc_amt = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0];
+  let desc = ["", "", "", "", "", ""];
 
-  if(isNaN(srn_num) || srn_num.indexOf(" ") > -1)
-    alert("Please enter 4 numbers")
-  if(isNaN(month_num) || month_num > 12 || month_num < 1)
-    alert("Please enter 1-12 for the month")
-
-  for(i=0; i < 6; i++)
+  for(i=0; i<6; i++)
   {
-    var major = parseInt(document.f2.major11.value);
-    var minor = parseInt(document.f2.minor11.value);
-    var sub1 = parseInt(document.f2.sub11.value);
-    var sub2 = parseInt(document.f2.sub12.value);
-    var trc_amt = parseFloat(document.f2.transaction1.value);
-    var description = document.f2.description1.value;
-
-
-    for(i=0; i < 1; i++)
-    {
-      var old_values = [major, minor, sub1, sub2];
-      var new_values = ["", "", "", ""];
-      var var_check = [major.toString(), minor.toString(), sub1.toString(), sub2.toString()];
-
-      if(isNaN(old_values[i]) || var_check[i].length != 4 || var_check[i].indexOf(" ") > -1)
-      {
-        if(isNaN(old_values[i]))
-          alert("Please enter a 4 digit number");
-        if(var_check[i].indexOf(" ") > -1 || trc_amt.toString().indexOf(" ") > -1)
-          alert("Please enter proper data");
-        if(var_check[i].length != 4)
-        {
-          if(old_values[i] == 0)
-            new_values[i] = "0000";
-          if(var_check[i].length == "3")
-            new_values[i] = "0" + old_values[i].toString();
-          if(var_check[i].length == "2")
-            new_values[i] = "00" + old_values[i].toString();
-          if(var_check[i].length == "1")
-            new_values[i] = "000" + old_values[i].toString();
-        }
-
-      }
-      else
-      {
-        if(old_values[0] == 0000 && old_values[1] == 0000 && old_values[2] == 0000 && old_values[3] == 0000)
-          alert("Invalid entry (all 0's)");
-      }
-
-    }
+    major[0] = document.jvform.major1.value;
   }
 }
 
@@ -61,7 +23,7 @@ function validateAndSubmit()
   <head>
 
     <style>
-      .journalForm
+      .jvform
       {
         font-family: Arial, Arial, Helvetica, sans-serif;
       }
@@ -70,40 +32,40 @@ function validateAndSubmit()
     <body>
       <div class="journalForm">
         <table border="1">
-          <tr><td colspan="6" align="center"><form name="f1"><b>Journal Voucher</td></tr>
-          <tr><td colspan="4"><b>SRN:</b><input type="text" size="6" maxlength="4" value="8010" name="srn_num"> (4 digits)</td><td colspan="2"><b>Fiscal Month: <input type="text" size="2" value="11" name="month_num"> Must be 1,2,3,...12</form></td></tr>
+          <tr><td colspan="6" align="center"><form name="jvform"><b>Journal Voucher</td></tr>
+          <tr><td colspan="4"><b>SRN:</b><input type="text" size="6" maxlength="4" value="8010" name="srn_num"> (4 digits)</td><td colspan="2"><b>Fiscal Month: <input type="text" size="2" value="11" name="month_num"> Must be 1,2,3,...12</td></tr>
           <tr><td colspan="6" align="center"><b>Journal Entries</td></tr>
           <tr><td colspan="4"><b><center>General Ledger Account Number</center></td>
           <td align="center" rowspan="2"><b>Transaction<br>Amount</td>
           <td  align="center" rowspan="2"><b>Description (max. 50 characters)</td>
           </tr>
           <tr>
-          <td  align="center" ><form name="f2"><b>Major</td><td  align="center" ><b>Minor</td><td  align="center" ><b>Sub<br>Acct 1</td><td  align="center" ><b>Sub<br>Acct 2</td>
+          <td  align="center" ><b>Major</td><td  align="center" ><b>Minor</td><td  align="center" ><b>Sub<br>Acct 1</td><td  align="center" ><b>Sub<br>Acct 2</td>
           </tr>
           <tr>
-          <td><input type="text" size="4" value="1000" name="major11"></td><td><input type="text" size="4" value="1000" name="minor11"></td><td><input type="text" size="4" value="0000" name="sub11"></td><td><input type="text" size="4"  value="0000" name="sub12"></td><td align="right"><input type="text" size="12" align="right" value="1234.56" name="transaction1"></td><td><input type="text" size="50" value="Record Store Sales" name="description1"></td>
+          <td><input type="text" size="4" value="1000" name="major1"></td><td><input type="text" size="4" value="1000" name="minor1"></td><td><input type="text" size="4" value="0000" name="sub11"></td><td><input type="text" size="4"  value="0000" name="sub12"></td><td align="right"><input type="text" size="12" align="right" value="1234.56" name="transaction1"></td><td><input type="text" size="50" value="Record Store Sales" name="description1"></td>
           </tr>
           <tr>
-          <td><input type="text" size="4"  value="4000"></td><td><input type="text" size="4"  value="1000"></td><td><input type="text" size="4"  value="0000"></td><td><input type="text" size="4"  value="0000"></td><td align="right"><input type="text" size="12" align="right" value="-1000.00"></td><td><input type="text" size="50"></td>
-          </tr>
-
-          <tr>
-          <td><input type="text" size="4"  value="4000"></td><td><input type="text" size="4"  value="2000"></td><td><input type="text" size="4"  value="0000"></td><td><input type="text" size="4" value="0000"></td><td align="right"><input type="text" size="12" value="-234.56"></td><td><input type="text" size="50"></td>
+          <td><input type="text" size="4"  value="4000" name="major2"></td><td><input type="text" size="4"  value="1000" name="minor2"></td><td><input type="text" size="4"  value="0000" name="sub21"></td><td><input type="text" size="4"  value="0000" name="sub22"></td><td align="right"><input type="text" size="12" align="right" value="-1000.00" name="transaction2"></td><td><input type="text" size="50" name="description2"></td>
           </tr>
 
           <tr>
-          <td><input type="text" size="4"></td><td><input type="text" size="4"></td><td><input type="text" size="4"></td><td><input type="text" size="4"></td><td align="right"><input type="text" size="12"></td><td><input type="text" size="50"></td>
+          <td><input type="text" size="4"  value="4000" name="major3"></td><td><input type="text" size="4"  value="2000" name="minor3"></td><td><input type="text" size="4"  value="0000" name="sub31"></td><td><input type="text" size="4" value="0000" name="sub32"></td><td align="right"><input type="text" size="12" value="-234.56" name="transaction3"></td><td><input type="text" size="50" name="description3"></td>
           </tr>
 
           <tr>
-          <td><input type="text" size="4"></td><td><input type="text" size="4"></td><td><input type="text" size="4"></td><td><input type="text" size="4"></td><td align="right"><input type="text" size="12"></td><td><input type="text" size="50"></td>
+          <td><input type="text" size="4" name="major4"></td><td><input type="text" size="4" name="minor4"></td><td><input type="text" size="4" name="sub41"></td><td><input type="text" size="4" name="sub42"></td><td align="right"><input type="text" size="12" name="transaction4"></td><td><input type="text" size="50" name="description4"></td>
           </tr>
 
           <tr>
-          <td><input type="text" size="4"></td><td><input type="text" size="4"></td><td><input type="text" size="4"></td><td><input type="text" size="4"></td><td align="right"><input type="text" size="12"></td><td><input type="text" size="50"></td>
+          <td><input type="text" size="4" name="major5"></td><td><input type="text" size="4" name="minor5"></td><td><input type="text" size="4" name="sub51"></td><td><input type="text" size="4" name="sub52"></td><td align="right"><input type="text" size="12" name="transaction5"></td><td><input type="text" size="50" name="description5"></td>
+          </tr>
+
+          <tr>
+          <td><input type="text" size="4" name="major6"></td><td><input type="text" size="4" name="minor6"></td><td><input type="text" size="4" name="sub61"></td><td><input type="text" size="4" name="sub62"></td><td align="right"><input type="text" size="12" name="transaction6"></td><td><input type="text" size="50" name="description6"></td>
           </tr>
           <tr>
-          <td colspan="4"><b>Sum of Transaction Amounts</td><td align="right"><input type="text" size="12" value="0.00"></td><td> <b> (Must sum to 0.0)</td></form>
+          <td colspan="4"><b>Sum of Transaction Amounts</td><td align="right"><input type="text" size="12" value="0.00" name="trc_sum"></td><td> <b> (Must sum to 0.0)</td></form>
           </tr>
           <tr><td colspan="6" align="center"><input type="button" value="Validate and Submit" onclick="validateAndSubmit()"></td></tr>
         </table>
